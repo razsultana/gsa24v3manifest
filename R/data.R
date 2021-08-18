@@ -40,6 +40,7 @@
 #' @source \url{https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html}
 #' 
 #' @importFrom data.table fread rbindlist
+#' @export
 load_manifest <- function() { 
   dir <- system.file("extdata", package = "omni54manifest")
   fls <- list.files(path = dir, pattern = "^manifest-.*\\.csv$", full.names = TRUE)
