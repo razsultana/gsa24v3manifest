@@ -40,16 +40,20 @@
 #' @source \url{https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html}
 #' 
 #' @importFrom data.table fread rbindlist
+#' @importFrom parallel mclapply
 #' @export
 load_manifest <- function() { 
   dir <- system.file("extdata", package = "omni54manifest")
   fls <- list.files(path = dir, pattern = "^manifest-.*\\.csv$", full.names = TRUE)
   
-  result <- vector("list", length(fls))
+  result <- parallel::mclapply(seq_along(fls), function(i) {
+    data.table::fread(input = fls[i], sep = ";", showProgress = FALSE)
+  })
   
-  for (i in seq_along(fls)) {
-    result[[i]] <- data.table::fread(input = fls[i], sep = ";")
-  }
+  #result <- vector("list", length(fls))
+  #for (i in seq_along(fls)) {
+  #  result[[i]] <- data.table::fread(input = fls[i], sep = ";", showProgress = FALSE)
+  #}
   
   manifest <- data.table::rbindlist(result, use.names = TRUE)
   data.table::setkey(x = manifest, Name)
