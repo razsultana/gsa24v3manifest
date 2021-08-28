@@ -3,3 +3,4 @@
 export(load_manifest)
 importFrom(data.table,fread)
 importFrom(data.table,rbindlist)
+importFrom(parallel,mclapply)

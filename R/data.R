@@ -56,8 +56,7 @@ load_manifest <- function() {
   #}
   
   manifest <- data.table::rbindlist(result, use.names = TRUE)
-  data.table::setkey(x = manifest, Name)
-  
+
   return(manifest)
 }
 
