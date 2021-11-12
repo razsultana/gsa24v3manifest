@@ -23,6 +23,29 @@ stopifnot(isTRUE(all.equal(file.size(rsid_path), 95486222L)))
 
 file.remove(rsid_tmpfile)
 
+# ======================================================
+# InfiniumOmni5-4v1-2_A1_MappingComment.txt
+# ======================================================
+# From <https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html> 
+#   -> "Infinium Omni5-4 v1.2 Support Files" 
+#   -> "Infinium Omni5-4 v1.2 Mapping Comments File"
+# `InfiniumOmni5-4v1-2_A1_MappingComment.txt`
+# Direct link:
+mappingcomments_url <- "https://support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/humanomni5-4/v1-2/infinium-omni5-4-v1-2-a1-mapping-comment.zip"
+mappingcomments_tmpfile <- tempfile()
+download.file(url = mappingcomments_url, destfile = mappingcomments_tmpfile)
+
+mappingcomments_dir <- tempdir()
+unzip(zipfile = mappingcomments_tmpfile, exdir = mappingcomments_dir)
+
+#mappingcomments_dir
+mappingcomments_path <- file.path(mappingcomments_dir, "InfiniumOmni5-4v1-2_A1_MappingComment.txt")
+stopifnot(file.exists(mappingcomments_path))
+
+stopifnot(isTRUE(all.equal(file.size(mappingcomments_path), 52903704L)))
+
+file.remove(mappingcomments_tmpfile)
+
 
 # ======================================================
 # InfiniumOmni5-4v1-2_A2.csv
@@ -129,13 +152,27 @@ manifest <- manifest %>%
 
 stopifnot(nrow(manifest) == 4327108L)
 
+###########
+
+mappingcomments <- data.table::fread(mappingcomments_path, header = TRUE, sep = "\t") %>%
+  as_tibble()
+
+stopifnot(nrow(anti_join(manifest, mappingcomments, by = "Name")) == 0L)
+stopifnot(nrow(anti_join(mappingcomments, manifest, by = "Name")) == 0L)
+stopifnot(nrow(manifest) == 4327108L)
+
+manifest <- manifest %>% 
+  inner_join(mappingcomments, by = "Name")
+
+stopifnot(nrow(manifest) == 4327108L)
+
+
 #manifest %>% filter(!grepl("^[0-9]+$", Name)) %>% 
 #  select(IlmnID, Name, RsID)
 
 manifest <- manifest %>% 
   select(Name, IlmnID, RsID, Chr, AddressA_ID, AddressB_ID, GenomeBuild, 
-         SNP, everything()) %>% 
-  select(-GenomeBuild)
+         SNP, everything()) 
 class(manifest) <- "data.frame"
 
 stopifnot(length(unique(manifest$Name)) == nrow(manifest))
@@ -150,7 +187,7 @@ stopifnot(length(unique(manifest$Name)) == nrow(manifest))
 
 dest <- here("inst", "extdata", "manifest.csv")
 
-chunks <- 10
+chunks <- 20
 #chunk_idx <- rep(seq_len(chunks), length.out = nrow(manifest))
 chunk_idx <- gl(n = chunks, k = ceiling(nrow(manifest)/chunks), length = nrow(manifest))
 head(chunk_idx)

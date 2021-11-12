@@ -1,5 +1,5 @@
 Package: omni54manifest
-Version: 0.0.0.9001
+Version: 0.0.0.9011
 Title: R Package with Manifest Information for Illumina Infinium Omni5-4 SNP Bead Chip
 Authors@R: c(
     person(given = "Mikkel Meyer", family = "Andersen",
