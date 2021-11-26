@@ -122,7 +122,7 @@ manifest <- manifest_raw %>%
   select(IlmnID, Name, SNP, IlmnStrand, SourceStrand, 
          TopGenomicSeqSBE, TopGenomicSeqSBE_Left, TopGenomicSeqSBE_Right, 
          AddressA_ID, AddressB_ID, 
-         GenomeBuild, Chr, BeadSetID, Exp_Clusters, RefStrand) %>% 
+         GenomeBuild, Chr, MapInfo, BeadSetID, Exp_Clusters, RefStrand) %>% 
   mutate(AddressA_ID = as.character(AddressA_ID),
          AddressB_ID = as.character(AddressB_ID)) %>% 
   mutate(ProbeType = ifelse(is.na(AddressB_ID), "II", "I")) %>% 
@@ -171,7 +171,7 @@ stopifnot(nrow(manifest) == 4327108L)
 #  select(IlmnID, Name, RsID)
 
 manifest <- manifest %>% 
-  select(Name, IlmnID, RsID, Chr, AddressA_ID, AddressB_ID, GenomeBuild, 
+  select(Name, IlmnID, RsID, Chr, MapInfo, AddressA_ID, AddressB_ID, GenomeBuild, 
          SNP, everything()) 
 class(manifest) <- "data.frame"
 
