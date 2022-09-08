@@ -1,0 +1,29 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(omni54manifest)
+```
+
+The main object in this package is the function `load_manifest` that loads the manifest (it may take a few moments):
+
+```{r}
+manifest <- load_manifest()
+head(manifest)
+table(manifest$Chr)
+table(manifest$ProbeType)
+```
+
