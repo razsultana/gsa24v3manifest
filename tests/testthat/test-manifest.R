@@ -1,12 +1,12 @@
 manifest <- load_manifest()
 
 test_that("Number of probes", {
-  expect_equal(nrow(manifest), 4327108L)
+  expect_equal(nrow(manifest), 654027L)
 })
 
 
 test_that("Number of columns", {
-  expect_equal(ncol(manifest), 18L)
+  expect_equal(ncol(manifest), 21L)
 })
 
 if (FALSE) {

@@ -1,14 +1,14 @@
 stopifnot(.Platform$OS.type == "unix") # command line tools used later
 
 # ======================================================
-# InfiniumOmni5-4v1-2_A1_b144_rsids.txt
+# GSA-24v3-0_A1_b151_rsids.txt
 # ======================================================
-# From <https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html> 
-#   -> "Infinium Omni5-4 v1.2 Support Files" 
-#   -> "Infinium Omni5-4 v1.2 Loci Name to rsID Conversion File"
-# `InfiniumOmni5-4v1-2_A1_b144_rsids.txt`
+# From <https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html> 
+#   -> "Infinium Global Screening Array v3.0 Support Files" 
+#   -> "Infinium Global Screening Array v3.0 Loci Name to rsID Conversion File"
+# `GSA-24v3-0_A1_b151_rsids.txt`
 # Direct link:
-rsid_url <- "https://support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/humanomni5-4/v1-2/infinium-omni5-4-v1-2-a1-b144-rsids.zip"
+rsid_url <- "https://sapac.support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/global-screening-array-24/v3-0/infinium-global-screening-array-24-v3-0-a1-b151-rsids.zip"
 rsid_tmpfile <- tempfile()
 download.file(url = rsid_url, destfile = rsid_tmpfile)
 
@@ -16,22 +16,22 @@ rsid_dir <- tempdir()
 unzip(zipfile = rsid_tmpfile, exdir = rsid_dir)
 
 #rsid_dir <- "/tmp/RtmpZEwja4"
-rsid_path <- file.path(rsid_dir, "InfiniumOmni5-4v1-2_A1_b144_rsids.txt")
+rsid_path <- file.path(rsid_dir, "GSA-24v3-0_A1_b151_rsids.txt")
 stopifnot(file.exists(rsid_path))
 
-stopifnot(isTRUE(all.equal(file.size(rsid_path), 95486222L)))
+stopifnot(isTRUE(all.equal(file.size(rsid_path), 15480783L)))
 
 file.remove(rsid_tmpfile)
 
 # ======================================================
-# InfiniumOmni5-4v1-2_A1_MappingComment.txt
+# GSA-24v3-0_A1_MappingComment.txt
 # ======================================================
-# From <https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html> 
-#   -> "Infinium Omni5-4 v1.2 Support Files" 
-#   -> "Infinium Omni5-4 v1.2 Mapping Comments File"
-# `InfiniumOmni5-4v1-2_A1_MappingComment.txt`
+# From <https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html> 
+#   -> "Infinium Global Screening Array v3.0 Support Files" 
+#   -> "Infinium Global Screening Array v3.0 Mapping Comments"
+# `GSA-24v3-0_A1_MappingComment.txt`
 # Direct link:
-mappingcomments_url <- "https://support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/humanomni5-4/v1-2/infinium-omni5-4-v1-2-a1-mapping-comment.zip"
+mappingcomments_url <- "https://sapac.support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/global-screening-array-24/v3-0/infinium-global-screening-array-24-v3-0-a1-mapping-comment.zip"
 mappingcomments_tmpfile <- tempfile()
 download.file(url = mappingcomments_url, destfile = mappingcomments_tmpfile)
 
@@ -39,24 +39,24 @@ mappingcomments_dir <- tempdir()
 unzip(zipfile = mappingcomments_tmpfile, exdir = mappingcomments_dir)
 
 #mappingcomments_dir
-mappingcomments_path <- file.path(mappingcomments_dir, "InfiniumOmni5-4v1-2_A1_MappingComment.txt")
+mappingcomments_path <- file.path(mappingcomments_dir, "GSA-24v3-0_A1_MappingComment.txt")
 stopifnot(file.exists(mappingcomments_path))
 
-stopifnot(isTRUE(all.equal(file.size(mappingcomments_path), 52903704L)))
+stopifnot(isTRUE(all.equal(file.size(mappingcomments_path), 9084079L)))
 
 file.remove(mappingcomments_tmpfile)
 
 
 # ======================================================
-# InfiniumOmni5-4v1-2_A2.csv
+# GSA-24v3-0_A2.csv
 # ======================================================
-# From <https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html> 
-#   -> "Infinium Omni5-4 v1.2 Product Files" 
-#   -> "Infinium Omni5-4 v1.2 Manifest File (CSV Format - GRCh38)"
-# `InfiniumOmni5-4v1-2_A2.csv`
+# From <https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html> 
+#   -> "Infinium Global Screening Array v2.0 Product Files" 
+#   -> "Infinium Global Screening Array v2.0 Manifest File (CSV Format - GRCh38)"
+# `GSA-24v3-0_A2.csv`
 
 
-manifest_url <- "ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/productfiles/infinium-omni5-4/v1-2/infinium-omni5-4-v1-2-a2-manifest-file-csv.zip"
+manifest_url <- "https://sapac.support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/global-screening-array-24/v3-0/GSA-24v3-0-A2-manifest-file-csv.zip"
 manifest_tmpfile <- tempfile()
 
 old_opts <- options(timeout = 1000)
@@ -67,28 +67,28 @@ manifest_dir <- tempdir()
 unzip(zipfile = manifest_tmpfile, exdir = manifest_dir)
 
 #manifest_dir <- "/tmp/RtmpZEwja4"
-manifest_path <- file.path(manifest_dir, "InfiniumOmni5-4v1-2_A2.csv")
+manifest_path <- file.path(manifest_dir, "GSA-24v3-0_A2.csv")
 stopifnot(file.exists(manifest_path))
 
-stopifnot(isTRUE(all.equal(file.size(manifest_path), 1862274220L)))
+stopifnot(isTRUE(all.equal(file.size(manifest_path), 284225383L)))
 
-#file.remove(manifest_tmpfile)
+file.remove(manifest_tmpfile)
 
 
 # Remove '[Controls]' section
-cmd <- paste0('cd ', manifest_dir, ' && csplit --prefix=MANIFEST InfiniumOmni5-4v1-2_A2.csv /\\\\[Controls\\\\]/')
+cmd <- paste0('cd ', manifest_dir, ' && csplit -f MANIFEST GSA-24v3-0_A2.csv /\\\\[Controls\\\\]/')
 system(cmd)
 stopifnot(file.exists(file.path(manifest_dir, "MANIFEST00")))
 stopifnot(file.exists(file.path(manifest_dir, "MANIFEST01")))
 stopifnot(!file.exists(file.path(manifest_dir, "MANIFEST02")))
 
 manifest_probes_path <- file.path(manifest_dir, "MANIFEST00")
-stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 1862271459L)))
+stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 284223634L)))
 
 # Remove header:
-cmd <- paste0("cd ", manifest_dir, " && sed -i '1,7d' MANIFEST00")
+cmd <- paste0("cd ", manifest_dir, " && sed -i '.orig' '1,7d' MANIFEST00")
 system(cmd)
-stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 1862271292L)))
+stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 284223483L)))
 
 # Controls:
 #sed -i '1d' xx01
@@ -100,7 +100,7 @@ stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 1862271292L)))
 
 if (FALSE) {
   rsid_dir <- "/tmp/RtmpZEwja4"
-  rsid_path <- file.path(rsid_dir, "InfiniumOmni5-4v1-2_A1_b144_rsids.txt")
+  rsid_path <- file.path(rsid_dir, "GSA-24v3-0_A1_b151_rsids.txt")
   
   manifest_dir <- rsid_dir
   manifest_probes_path <- file.path(manifest_dir, "MANIFEST00")
@@ -145,12 +145,12 @@ rsno <- data.table::fread(rsid_path, header = TRUE, sep = "\t") %>%
 
 stopifnot(nrow(anti_join(manifest, rsno, by = "Name")) == 0L)
 stopifnot(nrow(anti_join(rsno, manifest, by = "Name")) == 0L)
-stopifnot(nrow(manifest) == 4327108L)
+stopifnot(nrow(manifest) == 654027L)
 
 manifest <- manifest %>% 
   inner_join(rsno, by = "Name")
 
-stopifnot(nrow(manifest) == 4327108L)
+stopifnot(nrow(manifest) == 654027L)
 
 ###########
 
@@ -159,12 +159,12 @@ mappingcomments <- data.table::fread(mappingcomments_path, header = TRUE, sep = 
 
 stopifnot(nrow(anti_join(manifest, mappingcomments, by = "Name")) == 0L)
 stopifnot(nrow(anti_join(mappingcomments, manifest, by = "Name")) == 0L)
-stopifnot(nrow(manifest) == 4327108L)
+stopifnot(nrow(manifest) == 654027L)
 
 manifest <- manifest %>% 
   inner_join(mappingcomments, by = "Name")
 
-stopifnot(nrow(manifest) == 4327108L)
+stopifnot(nrow(manifest) == 654027L)
 
 
 #manifest %>% filter(!grepl("^[0-9]+$", Name)) %>% 
@@ -187,7 +187,7 @@ stopifnot(length(unique(manifest$Name)) == nrow(manifest))
 
 dest <- here("inst", "extdata", "manifest.csv")
 
-chunks <- 20
+chunks <- 4
 #chunk_idx <- rep(seq_len(chunks), length.out = nrow(manifest))
 chunk_idx <- gl(n = chunks, k = ceiling(nrow(manifest)/chunks), length = nrow(manifest))
 head(chunk_idx)

@@ -1,6 +1,6 @@
-Package: omni54manifest
-Version: 0.0.1.9001
-Title: R Package with Manifest Information for Illumina Infinium Omni5-4 SNP Bead Chip
+Package: gsa24v3manifest
+Version: 0.0.0.1
+Title: R Package with Manifest Information for Illumina Infinium Global Screening Array v3.0 
 Authors@R: c(
     person(given = "Mikkel Meyer", family = "Andersen",
         email = "mikl@math.aau.dk", role = c("aut", "cre", "cph")),
@@ -12,16 +12,18 @@ Authors@R: c(
         email = "svante@math.aau.dk", role = c("aut", "cph")),
     person(given = "Niels", family = "Morling",
         email = "niels.morling@sund.ku.dk", role = c("aut", "cph"))
+    person(given = "Razvan", family = "Sultana",
+        email = "r.sultana@garvan.org.au", role = c("ctr"))
   )
-Maintainer: Mikkel Meyer Andersen <mikl@math.aau.dk>
+Maintainer: Razvan Sultana <r.sultana@garvan.org.au>
 Encoding: UTF-8
-Description: This package contains manifest information for the Illumina Infinium Omni5-4 SNP Bead Chip.
+Description: This package contains manifest information for the Illumina Infinium Global Screening Array v3.0 .
 Depends: 
   R (>= 3.0),
   methods
 License: GPL
-URL: https://github.com/mikldk/omni54manifest
-BugReports: https://github.com/mikldk/omni54manifest/issues
+URL: https://github.com/razsultana/gsa24v3manifest
+BugReports: https://github.com/razsultana/gsa24v3manifest/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 LazyData: true

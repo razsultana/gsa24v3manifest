@@ -1,18 +1,18 @@
-# omni54manifest
+# gsa24v3manifest
 
-R Package with Manifest Information for Illumina Infinium Omni5-4 SNP Bead Chip
+R Package with Manifest Information for Illumina Infinium Global Screening Array v3.0
 
 ## Installation
 
 ```r
 install.packages("remotes")
-remotes::install_github("mikldk/omni54manifest")
+remotes::install_github("razsultana/gsa24v3manifest")
 ```
 
 ## Documentation
 
-Se the "Introduction" vignette, e.g. available 
-online at <https://mikldk.github.io/omni54manifest/articles/introduction.html>. 
+See the "Introduction" vignette, e.g. available 
+online at <https://razsultana.github.io/gsa24v3manifest/articles/introduction.html>. 
 
 ## Related packages
 
