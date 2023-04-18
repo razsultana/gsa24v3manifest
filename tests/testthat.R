@@ -1,4 +1,4 @@
 library(testthat)
-library(omni54manifest)
+library(gsa24v3manifest)
 
-test_check("omni54manifest")
+test_check("gsa24v3manifest")

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(omni54manifest)
+library(gsa24v3manifest)
 ```
 
 The main object in this package is the function `load_manifest` that loads the manifest (it may take a few moments):
