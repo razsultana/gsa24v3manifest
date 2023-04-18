@@ -11,7 +11,7 @@ Authors@R: c(
     person(given = "Poul Svante", family = "Eriksen",
         email = "svante@math.aau.dk", role = c("aut", "cph")),
     person(given = "Niels", family = "Morling",
-        email = "niels.morling@sund.ku.dk", role = c("aut", "cph"))
+        email = "niels.morling@sund.ku.dk", role = c("aut", "cph")),
     person(given = "Razvan", family = "Sultana",
         email = "r.sultana@garvan.org.au", role = c("ctr"))
   )
