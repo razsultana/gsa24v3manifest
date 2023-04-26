@@ -90,6 +90,49 @@ cmd <- paste0("cd ", manifest_dir, " && sed -i '.orig' '1,7d' MANIFEST00")
 system(cmd)
 stopifnot(isTRUE(all.equal(file.size(manifest_probes_path), 284223483L)))
 
+# ======================================================
+# GSA-24v3-0_A1.csv
+# ======================================================
+# From <https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html> 
+#   -> "Infinium Global Screening Array v2.0 Product Files" 
+#   -> "Infinium Global Screening Array v2.0 Manifest File (CSV Format - GRCh37)"
+# `GSA-24v3-0_A1.csv`
+
+
+manifest_url <- "https://sapac.support.illumina.com/content/dam/illumina-support/documents/downloads/productfiles/global-screening-array-24/v3-0/GSA-24v3-0-A1-manifest-file-csv.zip"
+manifest_tmpfile <- tempfile()
+
+old_opts <- options(timeout = 1000)
+download.file(url = manifest_url, destfile = manifest_tmpfile)
+options(old_opts)
+
+unzip(zipfile = manifest_tmpfile, exdir = manifest_dir)
+
+#manifest_dir <- "/tmp/RtmpZEwja4"
+manifest_path <- file.path(manifest_dir, "GSA-24v3-0_A1.csv")
+stopifnot(file.exists(manifest_path))
+
+stopifnot(isTRUE(all.equal(file.size(manifest_path), 284228929L)))
+
+file.remove(manifest_tmpfile)
+
+
+# Remove '[Controls]' section
+cmd <- paste0('cd ', manifest_dir, ' && csplit -f MANIFEST1 GSA-24v3-0_A1.csv /\\\\[Controls\\\\]/')
+system(cmd)
+stopifnot(file.exists(file.path(manifest_dir, "MANIFEST100")))
+stopifnot(file.exists(file.path(manifest_dir, "MANIFEST101")))
+stopifnot(!file.exists(file.path(manifest_dir, "MANIFEST102")))
+
+manifest_probes_path1 <- file.path(manifest_dir, "MANIFEST100")
+stopifnot(isTRUE(all.equal(file.size(manifest_probes_path1), 284227180L)))
+
+# Remove header:
+cmd <- paste0("cd ", manifest_dir, " && sed -i '.orig' '1,7d' MANIFEST100")
+system(cmd)
+stopifnot(isTRUE(all.equal(file.size(manifest_probes_path1), 284227180L)))
+
+
 # Controls:
 #sed -i '1d' xx01
 #echo 'IlmnID,Name,IlmnStrand,SNP,AddressA_ID,AlleleA_ProbeSeq,AddressB_ID,AlleleB_ProbeSeq,GenomeBuild,Chr,MapInfo,Ploidy,Species,Source,SourceVersion,SourceStrand,SourceSeq,TopGenomicSeq,BeadSetID,Exp_Clusters,RefStrand' | cat - xx01 > temp && mv temp xx01 
@@ -113,6 +156,8 @@ library(data.table)
 library(here)
 
 manifest_raw <- data.table::fread(manifest_probes_path, sep = ",")
+manifest_raw1 <- data.table::fread(manifest_probes_path1, sep = ",") %>% 
+  as_tibble() %>% dplyr::select(IlmnID, MapInfo) %>% dplyr::rename(`Pos_hg19` = `MapInfo`)
 
 manifest <- manifest_raw %>% 
   as_tibble() %>% 
@@ -123,6 +168,7 @@ manifest <- manifest_raw %>%
          TopGenomicSeqSBE, TopGenomicSeqSBE_Left, TopGenomicSeqSBE_Right, 
          AddressA_ID, AddressB_ID, 
          GenomeBuild, Chr, MapInfo, BeadSetID, Exp_Clusters, RefStrand) %>% 
+  rename(`Pos_hg38` = `MapInfo`) %>%
   mutate(AddressA_ID = as.character(AddressA_ID),
          AddressB_ID = as.character(AddressB_ID)) %>% 
   mutate(ProbeType = ifelse(is.na(AddressB_ID), "II", "I")) %>% 
@@ -135,6 +181,7 @@ manifest <- manifest_raw %>%
     SNP == "[I/D]" ~ "INDEL",
     TRUE ~ "UNAMB"
   )) %>% 
+  inner_join(manifest_raw1, by=join_by(IlmnID)) %>%
   mutate(Exclude = case_when(
     Name %in% c("rs28362918", "rs28897688") ~ TRUE,
     TRUE ~ FALSE
@@ -171,7 +218,7 @@ stopifnot(nrow(manifest) == 654027L)
 #  select(IlmnID, Name, RsID)
 
 manifest <- manifest %>% 
-  select(Name, IlmnID, RsID, Chr, MapInfo, AddressA_ID, AddressB_ID, GenomeBuild, 
+  select(Name, IlmnID, RsID, Chr, Pos_hg38, Pos_hg19, AddressA_ID, AddressB_ID, GenomeBuild, 
          SNP, everything()) 
 class(manifest) <- "data.frame"
 
@@ -208,3 +255,4 @@ for (i in seq_along(manifest_chunks)) {
 }
 
 #data.table::fwrite(x = manifest, file = dest, sep = ";")
+

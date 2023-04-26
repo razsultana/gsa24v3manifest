@@ -1,23 +1,26 @@
 #' Load manifest information for Illumina Infinium Global Screening Array v3.0 SNP beadchip
 #' 
-#' This dataset is a combination of the following three datasets 
+#' This dataset is a combination of the following four datasets 
 #' from https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html>>:
 #' 
 #' 1. `GSA-24v3-0_A2.csv`
-#'     - `Infinium Global Screening Array v2.0 Product Files -> Infinium Global Screening Array v2.0 Manifest File (CSV Format - GRCh38)`
+#'     - `Infinium Global Screening Array v3.0 Product Files -> Infinium Global Screening Array v3.0 Manifest File (CSV Format - GRCh38)`
+#' 1. `GSA-24v3-0_A1.csv`
+#'     - `Infinium Global Screening Array v3.0 Product Files -> Infinium Global Screening Array v3.0 Manifest File (CSV Format - GRCh37)`
 #' 2. `GSA-24v3-0_A1_b151_rsids.txt`
 #'     - `Infinium Global Screening Array v3.0 Support Files -> Infinium Global Screening Array v3.0 Loci Name to rsID Conversion File`
 #' 3. `GSA-24v3-0_A1_MappingComment.txt`
 #'     - `Infinium Global Screening Array v3.0 Support Files -> Infinium Global Screening Array v3.0 Mapping Comments`
 #' 
 #'
-#' @format A data frame with 654,027 rows (probes) and 21 variables:
+#' @format A data frame with 654,027 rows (probes) and 22 variables:
 #' \describe{
 #'   \item{Name}{Name of probe}
 #'   \item{IlmnID}{Illumina ID of probe}
 #'   \item{RsID}{rs number of probe}
 #'   \item{Chr}{Chromosome}
-#'   \item{MapInfo}{Map information}
+#'   \item{Pos_hg38}{Position on GRCh38}
+#'   \item{Pos_hg19}{Position on GRCh37/hg19}
 #'   \item{AddressA_ID}{Address A of probe}
 #'   \item{AddressB_ID}{Address B of probe}
 #'   \item{GenomeBuild}{Genome build, e.g. 38}
