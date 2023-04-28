@@ -130,7 +130,7 @@ stopifnot(isTRUE(all.equal(file.size(manifest_probes_path1), 284227180L)))
 # Remove header:
 cmd <- paste0("cd ", manifest_dir, " && sed -i '.orig' '1,7d' MANIFEST100")
 system(cmd)
-stopifnot(isTRUE(all.equal(file.size(manifest_probes_path1), 284227180L)))
+stopifnot(isTRUE(all.equal(file.size(manifest_probes_path1), 284227029L)))
 
 
 # Controls:
@@ -149,9 +149,8 @@ if (FALSE) {
   manifest_probes_path <- file.path(manifest_dir, "MANIFEST00")
 }
 
-library(dplyr)
-library(tidyr)
-library(tibble)
+library(multidplyr)
+library(tidyverse)
 library(data.table)
 library(here)
 
@@ -223,6 +222,47 @@ manifest <- manifest %>%
 class(manifest) <- "data.frame"
 
 stopifnot(length(unique(manifest$Name)) == nrow(manifest))
+library(BSgenome.Hsapiens.UCSC.hg19)
+hg19 <- BSgenome.Hsapiens.UCSC.hg19
+library(BSgenome.Hsapiens.UCSC.hg38)
+hg38 <- BSgenome.Hsapiens.UCSC.hg38
+
+hg38_sequence <- function(chr, pos) { 
+  chr <- gsub('XY','X', gsub('MT', 'M', chr))
+  chr <- paste0('chr', chr)
+  if (chr=='chr0' | seqlengths(hg38)[chr] < pos)  
+    return(NA) 
+  else 
+    return(as(hg38[[chr]][pos], 'character'))
+  }
+
+hg19_sequence <- function(chr, pos) {
+  chr <- gsub('XY','X', gsub('MT', 'M', chr))
+  chr <- paste0('chr', chr)
+  if (chr=='chr0' | seqlengths(hg19)[chr] < pos) 
+    return(NA) 
+  else 
+    return(as(hg19[[chr]][pos], 'character'))
+  }
+
+cl <- new_cluster(8)
+cluster_copy(cl, 'hg38_sequence')
+cluster_copy(cl, 'hg38')
+cluster_copy(cl, 'hg19_sequence')
+cluster_copy(cl, 'hg19')
+#cluster_call(cl, ls())
+cluster_library(cl, 'BSgenome.Hsapiens.UCSC.hg19')
+cluster_library(cl, 'BSgenome.Hsapiens.UCSC.hg38')
+cluster_library(cl, 'tidyverse')
+#cluster_call(cl, search())
+manifest1 <- manifest %>% group_by(Chr) %>% partition(cl)
+
+manifest <- manifest1 %>%   
+  mutate(Ref_hg38 = map2_chr(Chr, Pos_hg38, ~hg38_sequence(.x, .y)), Ref_hg19 = map2_chr(Chr, Pos_hg19, ~hg19_sequence(.x, .y))) %>% 
+  collect() %>% ungroup()
+
+rm(manifest1)
+rm(cl)
 
 #manifest_I <- subset(manifest, ProbeType == "I")
 
