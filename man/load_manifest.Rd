@@ -2,16 +2,19 @@
 % Please edit documentation in R/data.R
 \name{load_manifest}
 \alias{load_manifest}
-\title{Load manifest information for Illumina Infinium Omni5-4 SNP bead chips}
+\title{Load manifest information for Illumina Infinium Global Screening Array v3.0 SNP beadchip}
 \format{
-A data frame with 4,327,108 rows (probes) and 18 variables:
+A data frame with 654,027 rows (probes) and 22 variables:
 \describe{
 \item{Name}{Name of probe}
 \item{IlmnID}{Illumina ID of probe}
 \item{RsID}{rs number of probe}
 \item{Chr}{Chromosome}
+\item{Pos_hg38}{Position on GRCh38}
+\item{Pos_hg19}{Position on GRCh37/hg19}
 \item{AddressA_ID}{Address A of probe}
 \item{AddressB_ID}{Address B of probe}
+\item{GenomeBuild}{Genome build, e.g. 38}
 \item{SNP}{The possible bases of the SNP}
 \item{IlmnStrand}{\code{TOP}/\code{BOT}/\code{PLUS}/\code{MINUS}}
 \item{SourceStrand}{\code{TOP}/\code{BOT}/\code{PLUS}/\code{MINUS}}
@@ -24,35 +27,36 @@ A data frame with 4,327,108 rows (probes) and 18 variables:
 \item{ProbeType}{\code{II} (only address A) or \code{I} (address A and B)}
 \item{SNPType}{Signals whether \code{SNP} has alleles on same color channel (ambiguous) or not (unambiguous), or potentially is an INDEL (insertion/deletion): \code{AMB}iguous for AT-SNPs (\verb{[A/T]} or \verb{[T/A]}) and CG-SNPs; \code{INDEL} for INDELs; \code{UNAMB}iguous for the rest (e.g. AC-SNPs)}
 \item{Exclude}{Some probes should be excluded (cf. above), this indicate those}
+\item{MappingComment}{Mapping comment - ambiguous mapping, PAR regions etc.}
 }
 }
 \source{
-\url{https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html}
+\url{https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html>}
 }
 \usage{
 load_manifest()
 }
 \description{
-This dataset is a combination of the following two datasets
-from \url{https://support.illumina.com/array/array_kits/humanomni5-4-beadchip-kit/downloads.html}:
+This dataset is a combination of the following four datasets
+from https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html:
 }
 \details{
 \enumerate{
-\item \verb{InfiniumOmni5-4v1-2_A2.csv}
+\item \verb{GSA-24v3-0_A2.csv}
 \itemize{
-\item \verb{Infinium Omni5-4 v1.2 Product Files -> Infinium Omni5-4 v1.2 Manifest File (CSV Format - GRCh38)}
+\item \verb{Infinium Global Screening Array v3.0 Product Files -> Infinium Global Screening Array v3.0 Manifest File (CSV Format - GRCh38)}
 }
-\item \verb{InfiniumOmni5-4v1-2_A1_b144_rsids.txt}
+\item \verb{GSA-24v3-0_A1.csv}
 \itemize{
-\item \verb{Infinium Omni5-4 v1.2 Support Files -> Infinium Omni5-4 v1.2 Loci Name to rsID Conversion File}
+\item \verb{Infinium Global Screening Array v3.0 Product Files -> Infinium Global Screening Array v3.0 Manifest File (CSV Format - GRCh37)}
 }
-}
-
-Note that the following probes have \code{Exclude = FALSE} (all others have \code{Exclude = TRUE})
-because they are ambiguous (SNP is \code{C}/\code{G}), but they are a Type-II probe (i.e. do not have an \code{AddressB_ID}),
-so the bases cannot be distinguish as both \code{C} and \code{G} are detected by the green channel:
+\item \verb{GSA-24v3-0_A1_b151_rsids.txt}
 \itemize{
-\item Name \code{rs28362918} (Illumina ID \verb{rs28362918-131_T_R_1908372611})
-\item Name \code{rs28897688} (Illumina ID \verb{rs28897688-131_T_R_1908379219})
+\item \verb{Infinium Global Screening Array v3.0 Support Files -> Infinium Global Screening Array v3.0 Loci Name to rsID Conversion File}
+}
+\item \verb{GSA-24v3-0_A1_MappingComment.txt}
+\itemize{
+\item \verb{Infinium Global Screening Array v3.0 Support Files -> Infinium Global Screening Array v3.0 Mapping Comments}
+}
 }
 }

@@ -6,7 +6,7 @@ test_that("Number of probes", {
 
 
 test_that("Number of columns", {
-  expect_equal(ncol(manifest), 21L)
+  expect_equal(ncol(manifest), 24L)
 })
 
 if (FALSE) {
@@ -33,7 +33,7 @@ if (FALSE) {
   manifest %>% filter(SNPType == "AMB", ProbeType == "II") %>% pull(Name)
   
   
-  Name %in% c("rs28362918", "rs28897688")
+  table(manifest$Name %in% c("rs28362918", "rs28897688"))
   
   manifest
   manifest %>% count(Exclude)

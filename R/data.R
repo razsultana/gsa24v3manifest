@@ -1,7 +1,7 @@
 #' Load manifest information for Illumina Infinium Global Screening Array v3.0 SNP beadchip
 #' 
 #' This dataset is a combination of the following four datasets 
-#' from https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html>>:
+#' from https://sapac.support.illumina.com/array/array_kits/infinium-global-screening-array/downloads.html:
 #' 
 #' 1. `GSA-24v3-0_A2.csv`
 #'     - `Infinium Global Screening Array v3.0 Product Files -> Infinium Global Screening Array v3.0 Manifest File (CSV Format - GRCh38)`
@@ -43,6 +43,7 @@
 #' @importFrom data.table fread rbindlist
 #' @importFrom parallel mclapply
 #' @export
+
 load_manifest <- function() { 
   dir <- system.file("extdata", package = "gsa24v3manifest")
   fls <- list.files(path = dir, pattern = "^manifest-.*\\.csv$", full.names = TRUE)
